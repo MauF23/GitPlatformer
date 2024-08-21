@@ -50,7 +50,7 @@ namespace Platformer
 			}
 			if (Input.GetKeyDown(KeyCode.Space) && jumpCounter > 0)
 			{
-				float adjustedJumpForce = isGrounded ? jumpForce : jumpForce * 0.75f;
+				float adjustedJumpForce = isGrounded ? jumpForce : jumpForce * 0.85f;
 
 				if (!isGrounded)
 				{
