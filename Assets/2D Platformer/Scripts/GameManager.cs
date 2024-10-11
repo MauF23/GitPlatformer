@@ -18,7 +18,6 @@ namespace Platformer
 		public Text coinText;
 		public Fader fader;
 		public static GameManager instance;
-		public int i { get; }
 		public int hp 
 		{
 			get 
@@ -49,7 +48,7 @@ namespace Platformer
 			if (player.deathState == true)
 			{
 				playerGameObject.SetActive(false);
-				GameObject deathPlayer = (GameObject)Instantiate(deathPlayerPrefab, playerGameObject.transform.position, playerGameObject.transform.rotation);
+				GameObject deathPlayer = Instantiate(deathPlayerPrefab, playerGameObject.transform.position, playerGameObject.transform.rotation);
 				deathPlayer.transform.localScale = new Vector3(playerGameObject.transform.localScale.x, playerGameObject.transform.localScale.y, playerGameObject.transform.localScale.z);
 				player.deathState = false;
 				Invoke("ReloadLevel", 3);
@@ -61,9 +60,9 @@ namespace Platformer
 			}
 		}
 
-		//private void ReloadLevel()
-		//{
-		//    Application.LoadLevel(Application.loadedLevel);
-		//}
+		private void ReloadLevel()
+		{
+			Application.LoadLevel(Application.loadedLevel);
+		}
 	}
 }
