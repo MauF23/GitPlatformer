@@ -8,12 +8,14 @@ using UnityEngine.SceneManagement;
 public class Fader : MonoBehaviour
 {
 	public Image image;
+
+	public float fadeOutWaitTime;
 	public float fadeTime;
 	public float endValue;
 
 	private void Start()
 	{
-		image.DOFade(endValue, fadeTime);
+		StartCoroutine(FadeOut(fadeOutWaitTime));
 	}
 
 	public void FadeIn()
@@ -24,6 +26,12 @@ public class Fader : MonoBehaviour
 	public void SceneChange()
 	{
 		SceneManager.LoadScene(1);
+	}
+
+	public IEnumerator FadeOut(float waitTime)
+	{
+		yield return new WaitForSeconds(waitTime);
+		image.DOFade(endValue, fadeTime);
 	}
 
 }

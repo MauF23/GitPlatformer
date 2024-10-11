@@ -5,10 +5,15 @@ using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour
 {
+	private GameManager gameManager;
 	void Start()
 	{
-		Transform player = GameManager.instance.playerGameObject.transform;
-		player.transform.position = transform.position;
+		gameManager = GameManager.instance;
+
+		if(gameManager!= null)
+		{
+			gameManager.playerGameObject.transform.position = transform.position;
+		}
 	}
 
 }

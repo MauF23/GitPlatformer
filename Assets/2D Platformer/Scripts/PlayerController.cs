@@ -16,6 +16,7 @@ namespace Platformer
 
 		private bool isGrounded;
 		public Transform groundCheck;
+		public Hp hp;
 
 		private Rigidbody2D rigidbody;
 		private Animator animator;
@@ -93,19 +94,15 @@ namespace Platformer
 
 		private void OnCollisionEnter2D(Collision2D other)
 		{
-			if (other.gameObject.tag == "Enemy")
+			if (other.transform.CompareTag("Enemy"))
 			{
-				deathState = true; // Say to GameManager that player is dead
-			}
-			else
-			{
-				deathState = false;
+				hp.ReduceHp(1);
 			}
 		}
 
 		private void OnTriggerEnter2D(Collider2D other)
 		{
-			if (other.gameObject.tag == "Coin")
+			if (other.transform.CompareTag("Coin"))
 			{
 				gameManager.coinsCounter += 1;
 				Destroy(other.gameObject);

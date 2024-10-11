@@ -6,6 +6,7 @@ using UnityEngine;
 public class CoinChecker : MonoBehaviour
 {
 	public KeyCode triggerKey;
+	public int coinsToGet = 1;
 	private GameObject player;
 	private GameManager gameManager;
 
@@ -15,16 +16,9 @@ public class CoinChecker : MonoBehaviour
 	}
 	void Update()
 	{
-		if (Input.GetKeyDown(triggerKey))
+		if (gameManager.coinsCounter >= coinsToGet)
 		{
-			Debug.Log(GameManager.instance.coinsCounter);
-
-			if(gameManager.coinsCounter >= 2)
-			{
-				gameManager.fader.FadeIn();			
-			}
-
-			gameManager.hp = Random.Range(1, 7);
+			gameManager.fader.FadeIn();
 		}
 	}
 }
