@@ -12,7 +12,7 @@ namespace Platformer
 		public int coinsCounter = 0;
 
 		public GameObject playerGameObject;
-		private PlayerController player;
+		public PlayerController player;
 		public GameObject deathPlayerPrefab;
 		public GameObject test;
 		public Text coinText;
@@ -48,16 +48,16 @@ namespace Platformer
 		}
 		void Start()
 		{
-			player = GameObject.Find("Player").GetComponent<PlayerController>();
+
 		}
 
 		void Update()
 		{
 			coinText.text = coinsCounter.ToString();
-			if (Input.GetKeyDown(KeyCode.P))
-			{
-				SceneManager.LoadScene(1);
-			}
+			//if (Input.GetKeyDown(KeyCode.P))
+			//{
+			//	SceneManager.LoadScene(1);
+			//}
 		}
 
 		private void ReloadLevel()

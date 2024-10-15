@@ -10,6 +10,8 @@ namespace Platformer
 		public float jumpForce;
 		private float moveInput;
 
+		public bool movementBlocked { get; set; }
+
 		private bool facingRight = false;
 		[HideInInspector]
 		public bool deathState = false;
@@ -28,7 +30,13 @@ namespace Platformer
 		{
 			rigidbody = GetComponent<Rigidbody2D>();
 			animator = GetComponent<Animator>();
-			gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+			gameManager = GameManager.instance;
+
+			if(gameManager != null)
+			{
+				gameManager.playerGameObject = gameObject;
+				gameManager.player = this;
+			}
 		}
 
 		private void FixedUpdate()
@@ -38,6 +46,12 @@ namespace Platformer
 
 		void Update()
 		{
+			//Bloquear el movimiento del jugador
+			if (movementBlocked) //movementBlocked == true
+			{
+				return;
+			}
+
 			if (Input.GetButton("Horizontal"))
 			{
 				moveInput = Input.GetAxis("Horizontal");
@@ -72,6 +86,11 @@ namespace Platformer
 			{
 				Flip();
 			}
+		}
+
+		public bool FacingRight()
+		{
+			return facingRight;
 		}
 
 		private void Flip()
