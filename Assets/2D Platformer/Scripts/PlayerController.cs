@@ -16,11 +16,12 @@ namespace Platformer
 		[HideInInspector]
 		public bool deathState = false;
 
-		private bool isGrounded;
+		public bool isGrounded { get; set; }
+		public LayerMask ground;
 		public Transform groundCheck;
 		public Hp hp;
 
-		private Rigidbody2D rigidbody;
+		public Rigidbody2D rigidbody;
 		private Animator animator;
 		private GameManager gameManager;
 		private int jumpCounter = 0;
@@ -103,7 +104,7 @@ namespace Platformer
 
 		private void CheckGround()
 		{
-			Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.transform.position, 0.2f);
+			Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.transform.position, 0.2f, ground);
 			isGrounded = colliders.Length > 1;
 			if (isGrounded)
 			{
@@ -113,7 +114,7 @@ namespace Platformer
 
 		private void OnCollisionEnter2D(Collision2D other)
 		{
-			if (other.transform.CompareTag("Enemy"))
+			if (other.transform.CompareTag("Enemy") || other.transform.CompareTag("Hazard"))
 			{
 				hp.ReduceHp(1);
 			}

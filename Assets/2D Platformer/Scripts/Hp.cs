@@ -87,4 +87,9 @@ public class Hp : MonoBehaviour
 	{
 		gameManager.player.movementBlocked = true;	
 	}
+
+	public void Revive()
+	{
+		currentHp = maxHp;
+	}
 }

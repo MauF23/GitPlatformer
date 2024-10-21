@@ -62,7 +62,19 @@ namespace Platformer
 
 		private void ReloadLevel()
 		{
-			Application.LoadLevel(Application.loadedLevel);
+			LoadScene(SceneManager.GetActiveScene().buildIndex);
+		}
+
+		public void LoadScene(int level)
+		{
+			fader.FadeInToScene(level);
+		}
+
+		public void ResetPlayer()
+		{
+			coinText.text = 0.ToString();
+			playerGameObject.SetActive(true);
+			player.hp.Revive();
 		}
 
 		public void GameOver()
