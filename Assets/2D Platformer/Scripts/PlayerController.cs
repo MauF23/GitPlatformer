@@ -24,6 +24,7 @@ namespace Platformer
 		public Rigidbody2D rigidbody;
 		private Animator animator;
 		private GameManager gameManager;
+		private CameraManager cameraManager;
 		private int jumpCounter = 0;
 		private int maxJumps = 2;
 
@@ -32,8 +33,9 @@ namespace Platformer
 			rigidbody = GetComponent<Rigidbody2D>();
 			animator = GetComponent<Animator>();
 			gameManager = GameManager.instance;
+			cameraManager = CameraManager.instance;	
 
-			if(gameManager != null)
+			if (gameManager != null)
 			{
 				gameManager.playerGameObject = gameObject;
 				gameManager.player = this;
@@ -116,6 +118,7 @@ namespace Platformer
 		{
 			if (other.transform.CompareTag("Enemy") || other.transform.CompareTag("Hazard"))
 			{
+				cameraManager.CameraShakeDamage();
 				hp.ReduceHp(1);
 			}
 		}
