@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Unity.VisualScripting.Dependencies.NCalc;
 using DG.Tweening;
 
 namespace Platformer
@@ -18,6 +17,29 @@ namespace Platformer
 		public GameObject test;
 		public Text coinText;
 		public Fader fader;
+		public bool pause
+		{
+			get
+			{
+				return _pause;
+			}
+			set
+			{
+				_pause = value;
+				if (_pause)
+				{
+					Time.timeScale = 0;
+					pauseCanvas.DOFade(0.85f, 0.15f).SetUpdate(true);
+				}
+				else
+				{
+					Time.timeScale = 1;
+					pauseCanvas.DOFade(0, 0.15f).SetUpdate(true); ;
+				}
+			}
+		}
+		private bool _pause;
+
 		public static GameManager instance;
 		public KeyCode pauseKey;
 		public CanvasGroup pauseCanvas;
@@ -52,7 +74,7 @@ namespace Platformer
 		}
 		void Start()
 		{
-
+			pause = false;
 		}
 
 		void Update()
@@ -60,16 +82,7 @@ namespace Platformer
 			coinText.text = coinsCounter.ToString();
 			if (Input.GetKeyDown(pauseKey))
 			{
-				if (Time.timeScale >= 1)
-				{
-					Time.timeScale = 0;
-					pauseCanvas.DOFade(0.85f, 0.25f).SetUpdate(true);
-				}
-				else
-				{
-					Time.timeScale = 1;
-					pauseCanvas.DOFade(0, 0.25f).SetUpdate(true);
-				}
+				pause = !pause;
 			}
 		}
 

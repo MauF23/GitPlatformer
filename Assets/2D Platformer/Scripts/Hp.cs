@@ -74,6 +74,7 @@ public class Hp : MonoBehaviour
 
 		if (currentHp <= 0 && gameManager != null)
 		{
+			//Evitar que el tiempo siga congelado si el jugador muere
 			Time.timeScale = 1;
 			gameManager.GameOver();
 		}
@@ -97,7 +98,7 @@ public class Hp : MonoBehaviour
 	IEnumerator FreezeFrame()
 	{
 		Time.timeScale = 0;
-		yield return new WaitForSecondsRealtime(0.15f);
+		yield return new WaitForSecondsRealtime(0.1f);
 		Time.timeScale = 1;
 	}
 }
