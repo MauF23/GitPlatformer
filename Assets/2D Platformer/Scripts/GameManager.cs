@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting.Dependencies.NCalc;
+using DG.Tweening;
 
 namespace Platformer
 {
@@ -18,6 +19,9 @@ namespace Platformer
 		public Text coinText;
 		public Fader fader;
 		public static GameManager instance;
+		public KeyCode pauseKey;
+		public CanvasGroup pauseCanvas;
+
 		public int hp 
 		{
 			get 
@@ -54,10 +58,19 @@ namespace Platformer
 		void Update()
 		{
 			coinText.text = coinsCounter.ToString();
-			//if (Input.GetKeyDown(KeyCode.P))
-			//{
-			//	SceneManager.LoadScene(1);
-			//}
+			if (Input.GetKeyDown(pauseKey))
+			{
+				if (Time.timeScale >= 1)
+				{
+					Time.timeScale = 0;
+					pauseCanvas.DOFade(0.85f, 0.25f).SetUpdate(true);
+				}
+				else
+				{
+					Time.timeScale = 1;
+					pauseCanvas.DOFade(0, 0.25f).SetUpdate(true);
+				}
+			}
 		}
 
 		private void ReloadLevel()

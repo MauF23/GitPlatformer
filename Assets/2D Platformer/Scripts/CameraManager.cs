@@ -69,7 +69,7 @@ public class CameraManager : MonoBehaviour
 		noise.m_FrequencyGain = frecuency;
 		noise.m_AmplitudeGain = apmlitude;
 
-		yield return new WaitForSeconds(duration);
+		yield return new WaitForSecondsRealtime(duration);
 		ResetShake();
 
 	}

@@ -64,7 +64,7 @@ public class Hp : MonoBehaviour
 
 		//Aplicar efecto visual de daño
 		spriteRenderer.DOColor(damageColor, damageTweenTime).SetLoops(2, LoopType.Yoyo).OnStart(BlockMovement).OnComplete(UnblockMovement);
-
+		StartCoroutine(FreezeFrame());
 
 		//Código para reflejar el daño con una imagen, uno con DOFade y otro con DOColor.
 		//image.DOFade(1, damageTweenTime).SetLoops(2, LoopType.Yoyo).OnStart(BlockMovement).OnComplete(UnblockMovement);
@@ -74,6 +74,7 @@ public class Hp : MonoBehaviour
 
 		if (currentHp <= 0 && gameManager != null)
 		{
+			Time.timeScale = 1;
 			gameManager.GameOver();
 		}
 	}
@@ -91,5 +92,12 @@ public class Hp : MonoBehaviour
 	public void Revive()
 	{
 		currentHp = maxHp;
+	}
+
+	IEnumerator FreezeFrame()
+	{
+		Time.timeScale = 0;
+		yield return new WaitForSecondsRealtime(0.15f);
+		Time.timeScale = 1;
 	}
 }
