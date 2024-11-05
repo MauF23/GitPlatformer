@@ -17,6 +17,7 @@ public class Hp : MonoBehaviour
 	[SerializeField]
 	private int _currentHp;
 	private GameManager gameManager;
+	private PostProcessingManager postProcessingManager;
 
 	//Variables efecto de daño
 	public SpriteRenderer spriteRenderer;
@@ -32,7 +33,7 @@ public class Hp : MonoBehaviour
 	{
 		currentHp = maxHp;
 		gameManager = GameManager.instance;
-
+		postProcessingManager = PostProcessingManager.instance;
 	}
 
 	private void Knockback()
@@ -61,6 +62,15 @@ public class Hp : MonoBehaviour
 	{
 		currentHp -= amount;
 		currentHp = Mathf.Clamp(currentHp, 0, maxHp);
+
+		if (currentHp > 0)
+		{
+			postProcessingManager.TweenVignette(0.5f, 0.2f);
+		}
+		else
+		{
+			postProcessingManager.TweenVignette(1, 0.2f);
+		}
 
 		//Aplicar efecto visual de daño
 		spriteRenderer.DOColor(damageColor, damageTweenTime).SetLoops(2, LoopType.Yoyo).OnStart(BlockMovement).OnComplete(UnblockMovement);

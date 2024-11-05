@@ -1,22 +1,22 @@
-using DG.Tweening;
-using DG.Tweening.Core;
-using JetBrains.Annotations;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
+using DG.Tweening;
+using UnityEngine.Rendering; //Librería general de rendering
+using UnityEngine.Rendering.Universal;//necesaria si el proyecto es URP
+using System;
 
 public class PostProcessingManager : MonoBehaviour
 {
 	public Volume volume;
-	private ChromaticAberration chromaticAberration;
 	private Tween chromaticTween;
-	public static PostProcessingManager instance;
 
-	float dude;
+	public ChromaticAberration chromaticAberration;
+	public Vignette vignette;
+
+	public float myTweenFloat;
+	//public Bloom bloom;
+	public static PostProcessingManager instance;
+	private Action myAction;
+
 
 	private void Awake()
 	{
@@ -29,13 +29,42 @@ public class PostProcessingManager : MonoBehaviour
 	private void Start()
 	{
 		GetPostProcessFx();
+		SampleTween();
+	}
+
+	private void SampleTween()
+	{
+		float endValue = 5;
+		float tweenTime = 2;
+
+		DOTween.To(() => myTweenFloat, targetValue => myTweenFloat = targetValue, endValue, tweenTime);
+
+
+		myAction = () => LogFuntion();
+		myAction.Invoke();
+	}
+
+	private void LogFuntion()
+	{
+		Debug.Log("Hola");
 	}
 
 	public void TweenChromaticAberration(float endVale, float tweenTime, bool yoyo)
 	{
+		int loops = 0;
+
 		if (chromaticAberration != null)
 		{
-			int loops = yoyo ? 2 : 1;
+			//if (yoyo)
+			//{
+			//	loops = 2;
+			//}
+			//else
+			//{
+			//	loops = 1;
+			//}
+
+			loops = yoyo ? 2 : 1;
 
 			chromaticTween = DOTween.To
 			(
@@ -46,25 +75,29 @@ public class PostProcessingManager : MonoBehaviour
 			).SetLoops(loops, LoopType.Yoyo);
 		}
 	}
+	public void TweenVignette(float endVale, float tweenTime)
+	{
+		DOTween.To(()=>vignette.intensity.value, x => vignette.intensity.value = x, endVale, tweenTime).SetLoops(2, LoopType.Yoyo);
+	}
 
 	private void GetPostProcessFx()
 	{
 		volume.profile.TryGet(out chromaticAberration);
+		volume.profile.TryGet(out vignette);
+
+		if(vignette != null)
+		{
+			vignette.intensity.value = 0;
+		}
 	}
 
 	float MyGetter()
 	{
-		return chromaticAberration.intensity.value;
+		return myTweenFloat;
 	}
 
 	void MySetter(float targetValue)
 	{
-		chromaticAberration.intensity.value = targetValue;
+		myTweenFloat = targetValue;
 	}
-
-	//void Example()
-	//{
-	//	Action <Vector3> myAction = x => transform.position = x;
-	//	Func<Vector3, Vector3> myFunc = x => x = Vector3.one;
-	//}
 }
