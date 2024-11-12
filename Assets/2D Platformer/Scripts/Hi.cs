@@ -9,6 +9,8 @@ public class Hi : MonoBehaviour
     {
     Debug.Log("hi");
 		Debug.Log("hello");
+		Debug.Log("Commit Art");
+
 
 	}
 
