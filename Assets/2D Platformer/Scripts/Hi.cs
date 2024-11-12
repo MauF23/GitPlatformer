@@ -8,6 +8,7 @@ public class Hi : MonoBehaviour
     void Start()
     {
     Debug.Log("hi");
-    }
+		Debug.Log("bye");
+	}
 
 }
