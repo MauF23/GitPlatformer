@@ -12,6 +12,7 @@ public class Hi : MonoBehaviour
 		Debug.Log("Commit Art");
 		Debug.Log("Commit Code");
 		Debug.Log("Commit Conflict Art");
+		Debug.Log("my Code");
 
 	}
 
