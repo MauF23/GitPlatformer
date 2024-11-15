@@ -20,8 +20,8 @@ public class Hi : MonoBehaviour
 	void Function()
 	{
   
-  int i = 4;
-  int i = 22;
+	  int i = 4;
+	  int j = 22;
 
 	}
 
