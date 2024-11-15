@@ -19,7 +19,7 @@ public class Hi : MonoBehaviour
 
 	void Function()
 	{
-		int t = 8;
+
 	}
 
 }
