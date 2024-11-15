@@ -17,4 +17,9 @@ public class Hi : MonoBehaviour
 
 	}
 
+	void Function()
+	{
+
+	}
+
 }
